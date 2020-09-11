@@ -15,13 +15,31 @@ import com.bank.agencies.to.AgencyTO;
 @Service
 public class AgencyService {
 
-	public ResponseEntity<AgencyResponse> findByState(List<AgencyGatewayResponse> agencies, StateEnum state) {
+	private ResponseEntity<AgencyResponse> findByState(List<AgencyGatewayResponse> agencies, StateEnum state) {
 		List<AgencyTO> agencyResponse = agencies.stream()
 				.map(agencyGateway -> new AgencyTO(agencyGateway.getBank(), agencyGateway.getCity(),
 						agencyGateway.getName(), StateEnum.valueOf(agencyGateway.getState().toUpperCase())))
 				.filter(agencyGateway -> agencyGateway.getState().equals(state)).collect(Collectors.toList());
 
 		return new ResponseEntity<>(new AgencyResponse(agencyResponse, agencyResponse.size()), HttpStatus.OK);
+	}
+
+	private ResponseEntity<AgencyResponse> findByState(List<AgencyGatewayResponse> agencies) {
+		List<AgencyTO> agencyResponse = agencies.stream()
+				.map(agencyGateway -> new AgencyTO(agencyGateway.getBank(), agencyGateway.getCity(),
+						agencyGateway.getName(), StateEnum.valueOf(agencyGateway.getState().toUpperCase())))
+				.collect(Collectors.toList());
+
+		return new ResponseEntity<>(new AgencyResponse(agencyResponse, agencyResponse.size()), HttpStatus.OK);
+	}
+
+	public ResponseEntity<AgencyResponse> findByState(List<AgencyGatewayResponse> agencies, String state) {
+		
+		if(state != null && !state.isBlank()) {
+			return findByState(agencies, StateEnum.valueOf(state));
+		}
+		
+		return findByState(agencies);
 	}
 
 }
