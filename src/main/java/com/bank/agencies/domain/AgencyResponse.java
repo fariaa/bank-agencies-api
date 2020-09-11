@@ -1,92 +1,45 @@
 package com.bank.agencies.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import java.util.List;
 
+import com.bank.agencies.to.AgencyTO;
+
+/**
+ * 
+ * @author lucas_faria
+ *
+ */
 public class AgencyResponse implements Serializable {
 
-    private static final long serialVersionUID = -7394339763238481398L;
+	private static final long serialVersionUID = -7045126330135698391L;
 
-    private String name;
-    private String bank;
-    private String city;
-    private String state;
+	private List<AgencyTO> agencies;
+	private int agenciesTotal;
 
-    public String getName() {
-        return name;
-    }
+	public AgencyResponse() {
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public AgencyResponse(List<AgencyTO> agencies, int agenciesTotal) {
+		super();
+		this.agencies = agencies;
+		this.agenciesTotal = agenciesTotal;
+	}
 
-    public String getBank() {
-        return bank;
-    }
+	public List<AgencyTO> getAgencies() {
+		return agencies;
+	}
 
-    public void setBank(String bank) {
-        this.bank = bank;
-    }
+	public void setAgencies(List<AgencyTO> agencies) {
+		this.agencies = agencies;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public int getAgenciesTotal() {
+		return agenciesTotal;
+	}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public void setAgenciesTotal(int agenciesTotal) {
+		this.agenciesTotal = agenciesTotal;
+	}
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-
-    public static final class AgencyResponseBuilder {
-        private String name;
-        private String bank;
-        private String city;
-        private String state;
-
-        private AgencyResponseBuilder() {
-        }
-
-        public static AgencyResponseBuilder anAgencyResponse() {
-            return new AgencyResponseBuilder();
-        }
-
-        public AgencyResponseBuilder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public AgencyResponseBuilder bank(String bank) {
-            this.bank = bank;
-            return this;
-        }
-
-        public AgencyResponseBuilder city(String city) {
-            this.city = city;
-            return this;
-        }
-
-        public AgencyResponseBuilder state(String state) {
-            this.state = state;
-            return this;
-        }
-
-        public AgencyResponse build() {
-            AgencyResponse agencyResponse = new AgencyResponse();
-            agencyResponse.setName(name);
-            agencyResponse.setBank(bank);
-            agencyResponse.setCity(city);
-            agencyResponse.setState(state);
-            return agencyResponse;
-        }
-    }
 }
-
