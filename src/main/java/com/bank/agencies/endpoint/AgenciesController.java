@@ -33,11 +33,11 @@ import com.bank.agencies.usecase.FindAllBBAgenciesUseCase;
         
         @GetMapping
         @ResponseStatus(HttpStatus.OK)
-        public ResponseEntity<AgencyResponse> findBBAgencies(@RequestParam(required = false, name = "state") String state) {
+        public ResponseEntity<AgencyResponse> findBBAgencies(@RequestParam(required = false, name = "state") String state, @RequestParam(required = false, name = "states") String states) {
         	if(agencies == null)
         		agencies = findAllBBAgenciesUseCase.execute();
         	
-            return agencyService.findByState(agencies, state);
+            return agencyService.findByState(agencies, state, states);
         }
         
         
